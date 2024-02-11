@@ -8,7 +8,6 @@ from flask import render_template, request, redirect
 @app.route('/')
 def index():
     # Get data from database
-    logging.info('User opened main page')
     a = db['devices']
     return render_template('main.html', data=a)
 
