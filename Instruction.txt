@@ -1,0 +1,23 @@
+Author: Murodov Azizmurod
+
+https://t.me/murodov_azizmurod
+https://github.com/murodovazizmurod
+
+###############CALCULATOR######################
+_______________________________________________
+________________Instruction____________________
+
+#################MINING########################
+
+
+
+If linux
+
+1. source calcm/Scripts/acticvate
+2. pip3 install -r requirements.txt
+3. python3 run.py
+
+
+
+P.s. "init_db" for adding informations to new Database
+     "log/server.log" all server logs

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="/static/main.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        .form-group {
+            margin: 15px auto;
+            border: 2px solid black;
+            padding: 8px;
+            border-radius: 5px;
+        }
+
+        .form {
+            max-width: 80%;
+            margin: 15px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1></h1>
+    <div class="container">
+        <form action="/result" id="form" method="POST" class="form" id="form">
+            <div id="form-exams-list">
+                <div class="form-group">
+                    <label for="exam_m">Устройство: </label>
+                    <select name="exam_m" id="exam_m" style='width: 200px;' required>
+                        {% for i in data %}
+                        <option value='{{ i["id"] }}'>{{ i["model"] }}</option>
+                        {% endfor %}
+                    </select><br><br>
+                    <label for="exam_c">Количество устройств: </label>
+                    <div class="number">
+                        <button class="number-minus" type="button"
+                            onclick="this.nextElementSibling.stepDown(); this.nextElementSibling.onchange();">-</button>
+                        <input type="number" min="1" max="30" name="exam_c" value="1" id="exam_c" readonly required>
+                        <button class="number-plus" type="button"
+                            onclick="this.previousElementSibling.stepUp(); this.previousElementSibling.onchange();">+</button>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <button class="btn btn-primary js-add--exam-row">Добавить другое устройство</button>
+            <button type="submit" class="btn btn-info">Посчитать</button>
+            <br>
+            <h6>Количество: {{ data|length }}</h6>
+
+        </form>
+    </div>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script>
+        (function () {
+            //add rows when add button is clicked
+            $(document).on('click', '.js-add--exam-row', function (e) {
+                var clone, examsList;
+                e.preventDefault();
+                examsList = $('#form-exams-list');
+                clone = examsList.children('.form-group:first-child').clone(true);
+                clone.append($('<button>').addClass('btn btn-danger js-remove--exam-row').html('Remove'));
+                clone.find('input').val('').attr('name', function () {
+                    return $(this).attr('name') + '_' + (examsList.children('.form-group').length + 1);
+                });
+                clone.find('select').val('').attr('name', function () {
+                    return $(this).attr('name') + '_' + (examsList.children('.form-group').length + 1);
+                });
+                return examsList.append(clone);
+            });
+
+            //remove rows when remove button is clicked
+            $(document).on('click', '.js-remove--exam-row', function (e) {
+                e.preventDefault();
+                return $(this).parent().remove();
+            });
+
+        }).call(this);
+
+    </script>
+</body>
+
+</html>
