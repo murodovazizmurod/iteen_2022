@@ -1,4 +1,3 @@
-import logging
 import calendar
 import datetime
 from backend import app
@@ -59,7 +58,5 @@ def result():
                 for index, num in enumerate(results[i][k]):
                     # multiply cost to count
                     results[i][k][index] = num * c
-        logging.info('User entered data')
         return render_template('result.html', data=results)
-    logging.warning('Method not allowed')
     return redirect('/')
