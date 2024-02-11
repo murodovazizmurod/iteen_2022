@@ -15,4 +15,3 @@ SQLAlchemy==1.4.32
 urllib3==1.26.9
 wcwidth==0.2.5
 Werkzeug==2.0.3
-logging
